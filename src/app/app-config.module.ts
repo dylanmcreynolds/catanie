@@ -14,6 +14,7 @@ export class AppConfig {
   disabledDatasetColumns: string[];
   addDatasetEnabled: boolean;
   archiveWorkflowEnabled: boolean;
+  retrieveDestinations: string[];
   columnSelectEnabled: boolean;
   datasetReduceEnabled: boolean;
   editMetadataEnabled: boolean;
@@ -56,6 +57,7 @@ export const APP_DI_CONFIG: AppConfig = {
   production: environment.production,
   addDatasetEnabled: environment["addDatasetEnabled"] || false,
   archiveWorkflowEnabled: environment["archiveWorkflowEnabled"] || null,
+  retrieveDestinations: environment["retrieveDestinations"] || [],
   columnSelectEnabled: environment["columnSelectEnabled"] || false,
   datasetReduceEnabled: environment["datasetReduceEnabled"] || false,
   disabledDatasetColumns: environment["disabledDatasetColumns"] || [],

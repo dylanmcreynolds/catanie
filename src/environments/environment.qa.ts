@@ -16,6 +16,7 @@ export const environment = {
   externalAuthEndpoint: "/auth/msad",
   addDatasetEnabled: false,
   archiveWorkflowEnabled: true,
+  retrieveDestinations: ["PSI","CSCS"],
   columnSelectEnabled: true,
   datasetReduceEnabled: false,
   disabledDatasetColumns: [],

@@ -42,6 +42,7 @@ export class DatasetTableActionsComponent implements OnInit, OnDestroy {
   ];
 
   searchPublicDataEnabled = this.appConfig.searchPublicDataEnabled;
+
   currentPublicViewMode = false;
 
   subscriptions: Subscription[] = [];
@@ -103,24 +104,29 @@ export class DatasetTableActionsComponent implements OnInit, OnDestroy {
    * @memberof DashboardComponent
    */
   retrieveClickHandle(event): void {
-    const dialogRef = this.dialog.open(DialogComponent, {
+    let dialogOptions = {
       width: "auto",
       data: {
         title: "Really retrieve?",
-        question: "",
-        choice: {
-          title: "Optionally select retrieve destination",
-          options: ["PSI", "CSCS"]
-        }
+        question: ""
       }
-    });
-
-    // TODO isolate the PSI specific parts in configuration file
-    // or move completely out (handle in nodered code instead)
+    };
+    if (typeof this.appConfig.retrieveDestinations !== 'undefined' && this.appConfig.retrieveDestinations.length > 1) {
+      dialogOptions.data["choice"] = {
+        title: "Optionally select destination",
+        options: this.appConfig.retrieveDestinations // e.g. ["PSI", "CSCS"]
+      }
+    }
+    // TODO Add same destination choice logic when starting retrieve action via cart
+    const dialogRef = this.dialog.open(DialogComponent, dialogOptions)
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        const dest = result.selected ?? "PSI"
-        const destPath = (dest == "PSI") ? "/archive/retrieve" : dest
+        let destPath = result.selected;
+        if (!result.selected &&
+          typeof this.appConfig.retrieveDestinations !== "undefined" &&
+          this.appConfig.retrieveDestinations.length > 0) {
+          destPath = this.appConfig.retrieveDestinations[0]
+        }
         this.archivingSrv.retrieve(this.selectedSets, destPath).subscribe(
           () => this.store.dispatch(clearSelectionAction()),
           err =>

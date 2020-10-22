@@ -9,6 +9,7 @@ export const environment = {
   production: true,
   lbBaseURL: "https://dacat-development.psi.ch",
   archiveWorkflowEnabled: true,
+  retrieveDestinations: ["PSI","CSCS"],
   externalAuthEndpoint: "/auth/msad",
   editMetadataEnabled: true,
   editSampleEnabled: true,
