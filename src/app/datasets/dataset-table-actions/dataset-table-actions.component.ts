@@ -114,7 +114,7 @@ export class DatasetTableActionsComponent implements OnInit, OnDestroy {
     if (typeof this.appConfig.retrieveDestinations !== 'undefined' && this.appConfig.retrieveDestinations.length > 1) {
       dialogOptions.data["choice"] = {
         title: "Optionally select destination",
-        options: this.appConfig.retrieveDestinations // e.g. ["PSI", "CSCS"]
+        options: this.appConfig.retrieveDestinations 
       }
     }
     // TODO Add same destination choice logic when starting retrieve action via cart
